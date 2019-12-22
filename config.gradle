@@ -1,0 +1,31 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// 添加多个自定义属性，可以通过ext代码块
+//在根项目apply from: "config.gradle"
+ext{
+    isRelease=false    // 生产/开发环境（正式/测试）
+    androidId= [
+        minSdkVersion :27,
+        targetSdkVersion :29,
+        versionCode :1,
+        versionName :"1.0",
+        compileSdkVersion :29,
+        buildToolsVersion :"29.0.2",
+    ]
+    appId=[
+            app :"com.wangyi.arouter",
+            order :"com.wangyi.order",
+            personal :"com.wangyi.personal",
+    ]
+
+    // 生产/开发环境URL
+    url = [
+            "debug"  : "https://11.22.33.44/debug",
+            "release": "https://11.22.33.44/release"
+    ]
+    appcompat="1.1.0"
+    // 第三方库
+    dependencies = [
+            "appcompat" : "androidx.appcompat:appcompat:${appcompat}",
+            "constraint" : "com.android.support.constraint:constraint-layout:1.1.3"
+    ]
+}
