@@ -2,7 +2,7 @@
 // 添加多个自定义属性，可以通过ext代码块
 //在根项目apply from: "config.gradle"
 ext{
-    isRelease=false    // 生产/开发环境（正式/测试）
+    isRelease=true    // 生产/开发环境（正式/测试）
     androidId= [
         minSdkVersion :27,
         targetSdkVersion :29,
