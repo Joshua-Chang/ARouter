@@ -7,9 +7,6 @@ import com.wangyi.arouter.MainActivity;
  */
 public class XActivity$$ARouter {
     public static Class<?> findTargetClass(String path) {
-        if (path.equals("/app/MainActivity")) {
-            return MainActivity.class;
-        }
-        return null;
+        return path.equals("/app/MainActivity") ? MainActivity.class : null;
     }
 }
