@@ -3,6 +3,9 @@
 //在根项目apply from: "config.gradle"
 ext{
     isRelease=true    // 生产/开发环境（正式/测试）
+
+    // 包名，用于存放APT生成的类文件
+    packageNameForAPT = "com.netease.modular.apt"
     androidId= [
         minSdkVersion :27,
         targetSdkVersion :29,

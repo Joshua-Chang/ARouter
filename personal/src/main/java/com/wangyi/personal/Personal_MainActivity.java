@@ -7,9 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.wangyi.annotation.ARouter;
 import com.wangyi.common.RecordPathManager;
 import com.wangyi.common.utils.Cons;
-
+@ARouter(path = "/personal/Personal_MainActivity")
 public class Personal_MainActivity extends AppCompatActivity {
 
     @Override

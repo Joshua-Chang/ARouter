@@ -51,6 +51,14 @@ public class RouterBean {
         return group;
     }
 
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
     /**
      * 构建者模式
      */
