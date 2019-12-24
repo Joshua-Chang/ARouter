@@ -118,7 +118,12 @@ public class ParameterProcessor extends AbstractProcessor {
             // 获取类名
             ClassName className = ClassName.get(typeElement);
             // 方法体内容构建
-            ParameterFactory factory = new ParameterFactory.Builder(parameterSpec).setMessager(messager).setClassName(className).build();
+            ParameterFactory factory = new ParameterFactory.Builder(parameterSpec)
+                    .setMessager(messager)
+                    .setClassName(className)
+                    .setElementUtils(elementUtils)
+                    .setTypeUtils(typeUtils)
+                    .build();
             factory.addFirstStatement();
             for (Element element : entry.getValue()) {
                 factory.buildStatement(element);

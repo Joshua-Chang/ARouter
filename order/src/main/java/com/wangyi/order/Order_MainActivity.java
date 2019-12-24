@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.wangyi.annotation.ARouter;
 import com.wangyi.annotation.Parameter;
+import com.wangyi.arouter_api.ParameterManager;
 import com.wangyi.common.RecordPathManager;
 import com.wangyi.common.utils.Cons;
 @ARouter(path = "/order/Order_MainActivity")
@@ -22,6 +23,7 @@ public class Order_MainActivity extends AppCompatActivity {
         setContentView(R.layout.order_activity_main);
         if (getIntent() != null) {
             new Order_MainActivity$$Parameter().loadParameter(this);
+            ParameterManager.getInstance().loadParameter(this);
 //            String content = getIntent().getStringExtra("name");
             Log.e(Cons.TAG, "接收参数值：" + name);
         }

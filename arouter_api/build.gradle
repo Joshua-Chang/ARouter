@@ -1,4 +1,4 @@
-    apply plugin: 'com.android.library'
+apply plugin: 'com.android.library'
 
 def androidId = rootProject.ext.androidId
 def appId = rootProject.ext.appId
@@ -31,5 +31,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation depend.appcompat
     implementation project(':annotation')     // 引入注解中RouterBean对象（java项目才有javax.lang包）
 }

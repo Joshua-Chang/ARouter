@@ -6,22 +6,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.netease.modular.apt.ARouter$$Group$$personal;
+import com.netease.modular.apt.ARouter$$Path$$app;
+import com.netease.modular.apt.ARouter$$Path$$order;
 import com.netease.modular.apt.ARouter$$Path$$personal;
 import com.wangyi.annotation.ARouter;
+import com.wangyi.annotation.Parameter;
 import com.wangyi.annotation.model.RouterBean;
-import com.wangyi.arouter.test.ARouter$$Group$$order;
-import com.wangyi.arouter.test.ARouter$$Path$$order;
-import com.wangyi.arouter_api.core.ARouterLoadGroup;
+import com.wangyi.arouter_api.ParameterManager;
+import com.wangyi.arouter_api.RouterManager;
 import com.wangyi.arouter_api.core.ARouterLoadPath;
+import com.wangyi.common.order.drawable.OrderDrawable;
 import com.wangyi.common.utils.Cons;
 
 import java.util.Map;
 
 @ARouter(path = "/app/MainActivity")
 public class MainActivity extends AppCompatActivity {
-
+    @Parameter(name = "/order/getDrawable")
+    OrderDrawable orderDrawable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e(Cons.TAG, "当前为：组件化模式，app/order/personal子模块都可独立运行");
         }
+//        ARouter$$Path$$order
+        ParameterManager.getInstance().loadParameter(this);
+        ImageView img = findViewById(R.id.img);
+        int drawable = orderDrawable.getDrawable();
+        img.setImageResource(drawable);
     }
 
     public void jumpOrder(View view) {
@@ -38,23 +48,29 @@ public class MainActivity extends AppCompatActivity {
 //        intent.putExtra("name", "simon");
 //        startActivity(intent);
 
-        try {
-            // 最终集成化模式，所有子模块app/order/personal通过APT生成的类文件都会打包到apk里面，不用担心找不到
-            ARouter$$Group$$order group = new ARouter$$Group$$order();
-            Map<String, Class<? extends ARouterLoadPath>> map = group.loadGroup();
-            // 1.通过order组名获取对应路由路径对象
-            Class<? extends ARouterLoadPath> clazz = map.get("order");
-            // 类加载动态加载路由路径对象
-            ARouter$$Path$$order path  = (ARouter$$Path$$order) clazz.newInstance();
-            Map<String, RouterBean> pathMap = path.loadPath();
-            // 获取目标对象封装
-            RouterBean bean = pathMap.get("/order/Order_MainActivity");
-            if (bean != null) {
-                startActivity(new Intent(this, bean.getClazz()));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // 最终集成化模式，所有子模块app/order/personal通过APT生成的类文件都会打包到apk里面，不用担心找不到
+//            ARouter$$Group$$order group = new ARouter$$Group$$order();
+//            Map<String, Class<? extends ARouterLoadPath>> map = group.loadGroup();
+//            // 1.通过order组名获取对应路由路径对象
+//            Class<? extends ARouterLoadPath> clazz = map.get("order");
+//            // 类加载动态加载路由路径对象
+//            ARouter$$Path$$order path  = (ARouter$$Path$$order) clazz.newInstance();
+//            Map<String, RouterBean> pathMap = path.loadPath();
+//            // 获取目标对象封装
+//            RouterBean bean = pathMap.get("/order/Order_MainActivity");
+//            if (bean != null) {
+//                startActivity(new Intent(this, bean.getClazz()));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+        RouterManager.getInstance()
+                .build("/order/Order_MainActivity")
+                .withString("name", "simon")
+                .navigation(this);
     }
 
     public void jumpPersonal(View view) {
@@ -75,11 +91,15 @@ public class MainActivity extends AppCompatActivity {
             // 获取目标对象封装
             RouterBean bean = pathMap.get("/personal/Personal_MainActivity");
             if (bean != null) {
-                startActivity(new Intent(this, bean.getClazz()));
+                Intent intent = new Intent(this, bean.getClazz());
+                intent.putExtra("name", "simon");
+                startActivity(intent);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
+
 }

@@ -8,18 +8,22 @@ import android.util.Log;
 import android.view.View;
 
 import com.wangyi.annotation.ARouter;
+import com.wangyi.annotation.Parameter;
 import com.wangyi.common.RecordPathManager;
 import com.wangyi.common.utils.Cons;
 @ARouter(path = "/personal/Personal_MainActivity")
 public class Personal_MainActivity extends AppCompatActivity {
-
+    @Parameter
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_activity_main);
         if (getIntent() != null) {
-            String content = getIntent().getStringExtra("name");
-            Log.e(Cons.TAG, "接收参数值：" + content);
+//            String content = getIntent().getStringExtra("name");
+//            Log.e(Cons.TAG, "接收参数值：" + content);
+            new Personal_MainActivity$$Parameter().loadParameter(this);
+            Log.e(Cons.TAG, "接收参数值：" + name);
         }
     }
 
